@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+from datetime import datetime as dt
 
 filename = 'data/sitka_weather_07-2018_simple.csv'
 
@@ -18,24 +19,26 @@ with open(filename) as f:
     for row in reader:
         high = int(row[5])
         low = int(row[6])
-        date = str(row[2])
+        date = dt.strptime(row[2], '%d/%m/%Y')
 
         highs.append(high)
         lows.append(low)
         dates.append(date)
-    print(highs)
-    print(lows)
-    print(dates)
+    # Checks.
+    # print(highs)
+    # print(lows)
+    # print(dates)
 
 # Plot the high temperatures.
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
 ax.scatter(dates, highs, c = highs, cmap = plt.cm.Wistia, zorder = 10)
-ax.plot(highs, c = 'red', zorder = 1)
+ax.plot(dates, highs, c = 'red', zorder = 1)
 
 # Format plot.
 plt.title("Daily high temperatures, July 2018", fontsize = 24)
 plt.xlabel('', fontsize = 16)
+fig.autofmt_xdate()
 plt.ylabel("Temperature (F)", fontsize = 16)
 plt.tick_params(axis = 'both', which = 'major', labelsize = 16)
 plt.show()
