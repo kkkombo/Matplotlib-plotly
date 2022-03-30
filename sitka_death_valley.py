@@ -13,11 +13,12 @@ with open(death_valley) as f:
     dv_dates, dv_highs, dv_lows = [], [], []
     for row in dv_reader:
         try:
-            dv_current_date = dt.strptime(row[2], '%d/%m/%Y')
-            dv_high = int(row[4])
-            dv_low = int(row[5])
+            dv_current_date = dt.strptime(row[dv_header_row.index('DATE')], '%d/%m/%Y')
+            dv_high = int(row[dv_header_row.index('TMAX')])
+            dv_low = int(row[dv_header_row.index('TMIN')])
+            dv_name = str(row[dv_header_row.index('NAME')])
         except ValueError:
-            print(f"Missing data for {current_date}")
+            print(f"Missing data for {dv_current_date}")
         else:
             dv_highs.append(dv_high)
             dv_lows.append(dv_low)
@@ -27,10 +28,10 @@ with open(sitka) as f:
     s_reader = csv.reader(f)
     s_header_row = next(s_reader)
     # Print headers values.
-    # print(header_row)
+    # print(s_header_row)
 
-    for index, column_header in enumerate(s_header_row):
-        print(index, column_header)
+    #for index, column_header in enumerate(s_header_row):
+        #print(index, column_header)
 
     # Extracting high temps from reader
     s_dates, s_lows, s_highs = [], [], []
@@ -38,6 +39,7 @@ with open(sitka) as f:
         s_high = int(row[5])
         s_low = int(row[6])
         s_date = dt.strptime(row[2], '%d/%m/%Y')
+        s_name = str(row[s_header_row.index('NAME')])
 
         s_highs.append(s_high)
         s_lows.append(s_low)
@@ -57,7 +59,7 @@ plt.fill_between(dv_dates, dv_highs, dv_lows, facecolor = 'red',
                  alpha = 0.1)
 
 # Format plot.
-plt.title("Daily high and low temperatures\nSitka and Death Valley", 
+plt.title(f"Daily high and low temperatures\n{dv_name} and {s_name}", 
           fontsize = 24)
 plt.xlabel('', fontsize = 16)
 fig.autofmt_xdate()
