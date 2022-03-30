@@ -30,7 +30,8 @@ with open(filename) as f:
 # Plot the high temperatures.
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.scatter(dates, highs, c = highs, cmap = plt.cm.Wistia)
+ax.scatter(dates, highs, c = highs, cmap = plt.cm.Wistia, zorder = 10)
+ax.plot(highs, c = 'red', zorder = 1)
 
 # Format plot.
 plt.title("Daily high temperatures, July 2018", fontsize = 24)
