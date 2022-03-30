@@ -34,8 +34,9 @@ plt.style.use('seaborn')
 fig, ax = plt.subplots()
 ax.scatter(dates, highs, c = highs, cmap = plt.cm.Wistia, s = 10, zorder = 10)
 ax.scatter(dates, lows, c = lows, cmap = plt.cm.viridis, s = 10, zorder = 10)
-ax.plot(dates, highs, c = 'red', zorder = 1)
-ax.plot(dates, lows, c = 'blue', zorder = 1)
+ax.plot(dates, highs, c = 'red', zorder = 1, alpha = 0.5)
+ax.plot(dates, lows, c = 'blue', zorder = 1, alpha = 0.5)
+plt.fill_between(dates, highs, lows, facecolor = 'blue', alpha = 0.1)
 
 # Format plot.
 plt.title("Daily high and low temperatures - 2018", fontsize = 24)
