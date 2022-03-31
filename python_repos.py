@@ -1,3 +1,4 @@
+from operator import index
 import requests
 
 # Make an API call and store the response.
@@ -20,9 +21,14 @@ print(f"\nRepositories returned: {len(repo_dicts)}")
 
 # Examine the first repository.
 repo_dict = repo_dicts[0]
-#print(f"\nKeys: {len(repo_dict)}")
-#for key in sorted(repo_dict.keys()):
-#    print(key)
+print(f"\nKeys: {len(repo_dict)}\n{[i for i in sorted(repo_dict.keys())]}")
 
-print(f"\n{repo_dict['owner'].keys()}")
-
+for i, repo_dict in enumerate(repo_dicts[:3]):
+    print(f"\nSelected information about {i+1} repository:")
+    print(f"Name: {repo_dict['name']}")
+    print(f"Owner: {repo_dict['owner']['login']}")
+    print(f"Stars: {repo_dict['stargazers_count']}")
+    print(f"Repository: {repo_dict['html_url']}")
+    print(f"Created: {repo_dict['created_at']}")
+    print(f"Updated: {repo_dict['updated_at']}")
+    print(f"Description: {repo_dict['description']}")
